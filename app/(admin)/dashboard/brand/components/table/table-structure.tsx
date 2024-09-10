@@ -24,18 +24,8 @@ import {
 import { Button } from "@/components/ui/button"
 import { useRouter } from "next/navigation"
 
-
-
-
-export function TableBrand({data} : any) {
+export function TableBrand({data, handlerDelete} : any) {
   const router = useRouter();
-
-  const handlerDelete = async() => {
-    const isDelete = confirm("Apakah kamu yakin ingin menghapus?")
-    if(isDelete) {
-      console.log('delete')
-    }
-  }
 
   const hanlderEdit = async(username:any) => {
     router.push(`/dashboard/brand/edit/${username}`)
@@ -50,8 +40,8 @@ export function TableBrand({data} : any) {
           <TableHead>Nama</TableHead>
           <TableHead>Kategori</TableHead>
           <TableHead>Pengikut</TableHead>
-          <TableHead>Jenis Kelamin</TableHead>
-          <TableHead>Domisili</TableHead>
+          {/* <TableHead>Jenis Kelamin</TableHead> */}
+          {/* <TableHead>Domisili</TableHead> */}
           <TableHead>Usia</TableHead>
           <TableHead>Engegament</TableHead>
           <TableHead className="text-right">Action</TableHead>
@@ -63,11 +53,11 @@ export function TableBrand({data} : any) {
             <TableCell className="font-medium">{index + 1}</TableCell>
             <TableCell>{item.name}</TableCell>
             <TableCell>{item.category == null ?  'Belum ditentukan' : item.category}</TableCell>
-            <TableCell>{item.followers == null ?  'Belum ditentukan' : item.followers}</TableCell>
-            <TableCell>{item.gender == null ? 'Belum ditentukan' : item.gender}</TableCell>
-            <TableCell>{item.address == null ? 'Belum ditentukan' : item.address}</TableCell>
+            <TableCell>{item.category_followers == null ?  'Belum ditentukan' : item.category_followers}</TableCell>
+            {/* <TableCell>{item.gender == null ? 'Belum ditentukan' : item.gender}</TableCell> */}
+            {/* <TableCell>{item.address == null ? 'Belum ditentukan' : item.address}</TableCell> */}
             <TableCell>{item.age == null ? 'Belum ditentukan' : item.age}</TableCell>
-            <TableCell>{item.engegament == null ? 'Belum ditentukan' : item.engegament}</TableCell>
+            <TableCell>{item.engagement == null ? 'Belum ditentukan' : item.engagement}</TableCell>
             <TableCell className="flex justify-end">
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
@@ -81,9 +71,9 @@ export function TableBrand({data} : any) {
               </DropdownMenuTrigger>
               <DropdownMenuContent align="end" className="w-[160px]">
                 <DropdownMenuItem onClick={() => hanlderEdit(item.username)}>Edit</DropdownMenuItem>
-                <DropdownMenuItem onClick={handlerDelete}>Delete</DropdownMenuItem>
-                {!(item.engegament == null) && 
-                  <DropdownMenuItem onClick={handlerDelete}>Lihat</DropdownMenuItem>
+                <DropdownMenuItem onClick={() => handlerDelete(item.username)}>Delete</DropdownMenuItem>
+                {!(item.engagement == null) && 
+                  <DropdownMenuItem onClick={()=>router.push(`/dashboard/brand/${item.username}`)}>Lihat</DropdownMenuItem>
                 }
               </DropdownMenuContent>
             </DropdownMenu>

@@ -4,14 +4,22 @@ import { z } from "zod"
 import { columns } from "./components/columns"
 import { kolsSchema } from "./data/schema"
 import { DataTable } from "./components/data-table"
+import { request } from "https"
+import { headers } from "next/headers"
 
 export const metadata: Metadata = {
   title: "Key Opinion Leaders",
   description: "Key Opinion Leaders",
 }
 
+
 async function getKol() {
-  const response:any = await fetch('http://localhost:3000/api/kol', {
+const headersList = headers();
+const domain = headersList.get("x-forwarded-host") || "";
+const protocol = headersList.get("x-forwarded-proto") || "";
+const pathname = headersList.get("x-invoke-path") || "";
+console.log(domain)
+  const response:any = await fetch(`http://${domain}/api/kol`, {
     cache: 'no-cache',
   })
   const data = await response.json()

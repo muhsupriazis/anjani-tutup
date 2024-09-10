@@ -93,7 +93,7 @@ export default function Alternatif({ params }: { params: { username: string } })
     } else if(age === 'remaja') {
       return kols.filter((kol:any) => kol.age > 15 && kol.age <= 22)
     } else {
-      return kols.filter((kol:any) => kol.age < 22)
+      return kols.filter((kol:any) => kol.age > 22)
     }
   }
 
