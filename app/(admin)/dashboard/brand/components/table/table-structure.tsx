@@ -36,7 +36,7 @@ export function TableBrand({data, handlerDelete} : any) {
           {/* <TableHead>Jenis Kelamin</TableHead> */}
           {/* <TableHead>Domisili</TableHead> */}
           <TableHead>Usia</TableHead>
-          <TableHead>Engegament</TableHead>
+          <TableHead>Engagement</TableHead>
           <TableHead>Kol Terpilih (username)</TableHead>
           <TableHead className="text-right">Action</TableHead>
         </TableRow>

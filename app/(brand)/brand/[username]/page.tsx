@@ -194,7 +194,7 @@ export default function Alternatif({ params }: { params: { username: string } })
           <TableHead>Jenis Kelamin</TableHead>
           <TableHead>Domisili</TableHead>
           <TableHead>Usia</TableHead>
-          <TableHead>Engegament</TableHead>
+          <TableHead>Engagement</TableHead>
           <TableHead>Pilih</TableHead>
         </TableRow>
       </TableHeader>
@@ -210,7 +210,7 @@ export default function Alternatif({ params }: { params: { username: string } })
             <TableCell>{item.age}</TableCell>
             <TableCell>{item.engagement}%</TableCell>
             <TableCell>
-              <Button disabled={item.username === kolterpilih? true : false} onClick={() => handlerChooseKol(item)}>Pilih Kol</Button>
+              <Button disabled={item.username === kolterpilih? true : false} onClick={() => handlerChooseKol(item)}>{item.username === kolterpilih? 'Terpilih' : 'Pilih'}</Button>
             </TableCell>
           </TableRow>
         ))}

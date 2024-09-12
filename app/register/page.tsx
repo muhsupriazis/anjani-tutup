@@ -38,6 +38,15 @@ export default function Register() {
   const validationData = async (data : any) => {
     //validation when data empt
     console.log(data);
+    const regex = /^[a-z0-9]+$/;
+    // Cek apakah input sesuai dengan regex
+    if (!(regex.test(data.username))) {
+      return {
+        error: true,
+        title: "Gagal!",
+        description: "Data username tidak boleh mengandung karakter spesial atau huruf besar!",
+      } // Input tidak valid
+    }
     if(data.password == '' || data.name == '' || data.username == ''){
       return {
         error: true,

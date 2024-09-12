@@ -177,7 +177,7 @@ export default function Alternatif({ params }: { params: { username: string } })
           <TableHead>Jenis Kelamin</TableHead>
           <TableHead>Domisili</TableHead>
           <TableHead>Usia</TableHead>
-          <TableHead>Engegament</TableHead>
+          <TableHead>Engagement</TableHead>
         </TableRow>
       </TableHeader>
       <TableBody>
