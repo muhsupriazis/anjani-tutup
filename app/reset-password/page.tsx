@@ -26,6 +26,7 @@ export default function Register() {
   const [username, setUsername] = useState('')
   const router = useRouter();
   const [checked, setChecked] = useState(false);
+  const [confirm, setConfirm] = useState('');
   //const cookieStore = cookies()
 
   const validationData = async (data : any) => {
@@ -44,13 +45,27 @@ export default function Register() {
         description: "Masukan Password!",
       }
     }
+    if(data.confirm == ''){
+      return {
+        error: true,
+        title: "Gagal!",
+        description: "Masukan Konfirmasi Password!",
+      }
+    }
+
+    if(data.password !== data.confirm) {
+      return {
+        error: true,
+        title: "Gagal!",
+        description: "Password dan konfirmasi password tidak sama!",
+    }}
+
     let { data: brand, error } = await supabase
     .from('brand')
     .select("*")
     .eq('username', data.username)
 
     const dataBrand : any = brand && brand[0] || null
-    const passwordDb = brand && brand[0] ? brand[0].password : null;
 
     if(brand?.length === 0) {
       return {
@@ -60,25 +75,13 @@ export default function Register() {
       }
     }
 
-    if(password !== passwordDb) {
-      return {
-        error: true,
-        title: "Gagal!",
-        description: "Password salah"
-      }
-    }
-
     const brandData = {
       ...dataBrand,
-      token: 'brand'
+      password: data.confirm,
     }
-    if(dataBrand.username == 'admin') {
-      document.cookie = 'token=admin'
-    } else {
-      document.cookie = 'token=brand'
-    }
-    document.cookie = `username=${username}`
 
+    console.log(brandData)
+    
     const {errormsg} = await updateBrand(username, brandData)
     if(errormsg) {
       return {
@@ -87,11 +90,11 @@ export default function Register() {
         description: "Sesuatu salah saat login",
       }
     }
-
+    
     return {
       error: false,
       title: "Berhasil!",
-      description: "Berhasil login, tunggu untuk memuat halaman!",
+      description: "Barhasil mengubah pasword!",
     }
   }
 
@@ -100,15 +103,13 @@ export default function Register() {
       const brand = {
         password,
         username,
+        confirm,
         name
       }
+      console.log(brand)
       const {error, title, description} = await validationData(brand)
       if(!error) {
-        if(username == 'admin') {
-          router.push('/dashboard')
-        } else {
-          router.push(`/brand/${username}`)
-        }
+        router.push('/login')
       }
       toast({
         title,
@@ -124,7 +125,7 @@ export default function Register() {
     <div className="flex justify-center items-center min-h-screen">
       <Card className="max-w-3xl w-80">
         <CardHeader className="space-y-1">
-          <CardTitle className="text-2xl">Masuk</CardTitle>
+          <CardTitle className="text-2xl">Reset Password</CardTitle>
           <Separator/>
         </CardHeader>
         <CardContent className="grid gap-4">
@@ -133,8 +134,12 @@ export default function Register() {
             <Input onChange={(e) => setUsername(e.target.value)} type="text" />
           </div>
           <div className="grid gap-2">
-            <Label htmlFor="password">Password</Label>
+            <Label htmlFor="password">Password Baru</Label>
             <Input onChange={(e) => setPassword(e.target.value)} type={checked? 'text' : 'password'} />
+          </div>
+          <div className="grid gap-2">
+            <Label >Konfirmasi password</Label>
+            <Input onChange={(e) => setConfirm(e.target.value)} type={checked? 'text' : 'password'} />
           </div>
           <div className="flex gap-3">
           <Checkbox checked={checked} onClick={() => setChecked(!checked)} id="terms" />
@@ -149,7 +154,6 @@ export default function Register() {
         <CardFooter className="flex flex-col space-y-3">
           <Button onClick={handlerSubmit} className="w-full">Masuk</Button>
           <CardDescription>Belum punya akun? <Link className={buttonVariants({variant: 'link'})} href={'/register'}>Register</Link></CardDescription>
-          <Link className={buttonVariants({variant: 'link'})} href={'/reset-password'}>Lupa password?</Link>
         </CardFooter>
       </Card>
     </div>

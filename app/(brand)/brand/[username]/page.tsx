@@ -32,8 +32,9 @@ import { calculateFinalScores,
   createPairwiseComparisonMatrix
 } from "@/lib/ahp-2";
 import Link from "next/link";
-import { buttonVariants } from "@/components/ui/button";
+import { Button, buttonVariants } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
+import { updateBrand } from "@/_action/brand";
 
 
 export default function Alternatif({ params }: { params: { username: string } }) {
@@ -41,6 +42,7 @@ export default function Alternatif({ params }: { params: { username: string } })
   const { username } = params;
   const [kol, setKol] = useState<any>([]);
   const [brand, setBrand] = useState<any>({});
+  const [kolterpilih, setKolterpilih] = useState<any>('');
   const statusAge = (age: any) : string => {
     if (age === 1) {
       return '1'
@@ -75,6 +77,7 @@ export default function Alternatif({ params }: { params: { username: string } })
       .select("*")
       .eq('username', username)
       if (error) throw error;
+      setKolterpilih(alternatif?.[0].kol)
       setBrand(alternatif?.[0]);
       return alternatif?.[0];
       console.log(alternatif)
@@ -154,6 +157,20 @@ export default function Alternatif({ params }: { params: { username: string } })
     return;
   }
 
+  const handlerChooseKol = async (kol:any) => {
+    // console.log(kol)
+    const dataUpdated = {
+      ...brand,
+      kol: kol.username
+    }
+    setKolterpilih(kol.username)
+    const {errormsg} = await updateBrand(username, dataUpdated)
+    if(errormsg) {
+      return alert('Gagal memilih kol')
+    }
+    alert('Berhasil memilih kol')
+  }
+
   useEffect(() => {
     setLoading(true);
     getKols();
@@ -178,6 +195,7 @@ export default function Alternatif({ params }: { params: { username: string } })
           <TableHead>Domisili</TableHead>
           <TableHead>Usia</TableHead>
           <TableHead>Engegament</TableHead>
+          <TableHead>Pilih</TableHead>
         </TableRow>
       </TableHeader>
       <TableBody>
@@ -191,6 +209,9 @@ export default function Alternatif({ params }: { params: { username: string } })
             <TableCell>{item.address}</TableCell>
             <TableCell>{item.age}</TableCell>
             <TableCell>{item.engagement}%</TableCell>
+            <TableCell>
+              <Button disabled={item.username === kolterpilih? true : false} onClick={() => handlerChooseKol(item)}>Pilih Kol</Button>
+            </TableCell>
           </TableRow>
         ))}
       </TableBody>

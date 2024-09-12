@@ -12,13 +12,6 @@ import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
-  DropdownMenuRadioGroup,
-  DropdownMenuRadioItem,
-  DropdownMenuSeparator,
-  DropdownMenuShortcut,
-  DropdownMenuSub,
-  DropdownMenuSubContent,
-  DropdownMenuSubTrigger,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
 import { Button } from "@/components/ui/button"
@@ -44,6 +37,7 @@ export function TableBrand({data, handlerDelete} : any) {
           {/* <TableHead>Domisili</TableHead> */}
           <TableHead>Usia</TableHead>
           <TableHead>Engegament</TableHead>
+          <TableHead>Kol Terpilih (username)</TableHead>
           <TableHead className="text-right">Action</TableHead>
         </TableRow>
       </TableHeader>
@@ -58,6 +52,7 @@ export function TableBrand({data, handlerDelete} : any) {
             {/* <TableCell>{item.address == null ? 'Belum ditentukan' : item.address}</TableCell> */}
             <TableCell>{item.age == null ? 'Belum ditentukan' : item.age}</TableCell>
             <TableCell>{item.engagement == null ? 'Belum ditentukan' : item.engagement}</TableCell>
+            <TableCell>{item.kol == null ? 'Belum ditentukan o/ brand' : item.kol}</TableCell>
             <TableCell className="flex justify-end">
             <DropdownMenu>
               <DropdownMenuTrigger asChild>

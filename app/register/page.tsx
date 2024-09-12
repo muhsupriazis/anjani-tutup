@@ -125,6 +125,7 @@ export default function Register() {
         <CardFooter className="flex flex-col space-y-3">
           <Button onClick={handlerSubmit} className="w-full">Buat Akun</Button>
           <CardDescription>Sudah punya akun? <Link className={buttonVariants({variant: 'link'})} href={'/login'}>Login</Link></CardDescription>
+        {/* <Link className={buttonVariants({variant: 'link'})} href={'/reset-password'}>Lupa password?</Link> */}
         </CardFooter>
       </Card>
     </div>

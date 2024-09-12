@@ -134,7 +134,7 @@ export default function Add() {
               <Select onValueChange={field.onChange} defaultValue={field.value}>
                 <FormControl>
                   <SelectTrigger>
-                    <SelectValue placeholder="Pilih kategory kol" />
+                    <SelectValue placeholder="Pilih kategori kol" />
                   </SelectTrigger>
                 </FormControl>
                 <SelectContent>
@@ -225,7 +225,7 @@ export default function Add() {
               <Select onValueChange={field.onChange} defaultValue={field.value}>
                 <FormControl>
                   <SelectTrigger>
-                    <SelectValue placeholder="Pilih jeni kelamin kol" />
+                    <SelectValue placeholder="Pilih jenis kelamin kol" />
                   </SelectTrigger>
                 </FormControl>
                 <SelectContent>
