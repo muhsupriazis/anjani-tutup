@@ -199,7 +199,7 @@ export default function Alternatif({ params }: { params: { username: string } })
         </TableRow>
       </TableHeader>
       <TableBody>
-        {kol.map((item : any, index : any) => (
+        {kol.length > 0 ? kol.map((item : any, index : any) => (
           <TableRow key={index}>
             <TableCell className="font-medium">#{index + 1}</TableCell>
             <TableCell><Link className={buttonVariants({variant:'link'})} href={`https://www.instagram.com/${item.username}`}>{item.name}</Link></TableCell>
@@ -213,7 +213,7 @@ export default function Alternatif({ params }: { params: { username: string } })
               <Button disabled={item.username === kolterpilih? true : false} onClick={() => handlerChooseKol(item)}>{item.username === kolterpilih? 'Terpilih' : 'Pilih'}</Button>
             </TableCell>
           </TableRow>
-        ))}
+        )) : <TableRow><TableCell className="text-center" colSpan={8}>Admin belum menambahkan kriteria kol</TableCell></TableRow>}
       </TableBody>
     </Table>
     </div>
