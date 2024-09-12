@@ -56,9 +56,9 @@ export const columns: ColumnDef<Kol>[] = [
   //   enableHiding: false,
   // },
   {
-    accessorKey: "name",
+    accessorKey: "username",
     header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="Nama" />
+      <DataTableColumnHeader column={column} title="Username" />
     ),
     cell: ({ row }) => {
       const category = categoryKols.find((label) => label.value === row.original.category)
@@ -67,7 +67,7 @@ export const columns: ColumnDef<Kol>[] = [
         <div className="flex space-x-2">
           {category && <Badge variant="outline">{category?.label}</Badge>}
           <span className="max-w-[500px] truncate font-medium">
-            {row.getValue("name")}
+            {row.getValue("username")}
           </span>
         </div>
       )
