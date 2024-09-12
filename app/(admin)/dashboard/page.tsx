@@ -8,6 +8,7 @@ import { kolsSchema } from "./data/schema"
 import { DataTable } from "./components/data-table"
 import { request } from "https"
 import { useEffect, useState } from "react";
+import { getKolDb } from "@/_action/kol";
 //import { headers } from "next/headers"
 
 // export const metadata: Metadata = {
@@ -15,22 +16,29 @@ import { useEffect, useState } from "react";
 //   description: "Key Opinion Leaders",
 // }
 
-
-async function getKol() {
-// const headersList = headers();
-// const domain = headersList.get("x-forwarded-host") || "";
-// const protocol = headersList.get("x-forwarded-proto") || "";
-// const pathname = headersList.get("x-invoke-path") || "";
-// console.log(domain)
-  //const response:any = await fetch(`http://${domain}/api/kol`, {
-  const response:any = await fetch(`${document.location.origin}/api/kol`)
-  const data = await response.json()
-  return z.array(kolsSchema).parse(data.kol)
-}
-
 export default function TaskPage() {
   const [kol, setKol] = useState([])
   const [loading, setLoading] = useState(true)
+
+  async function getKol() {
+    // const headersList = headers();
+    // const domain = headersList.get("x-forwarded-host") || "";
+    // const protocol = headersList.get("x-forwarded-proto") || "";
+    // const pathname = headersList.get("x-invoke-path") || "";
+    // console.log(domain)
+      //const response:any = await fetch(`http://${domain}/api/kol`, {
+      const response:any = await fetch(`${document.location.origin}/api/kol`, 
+        {
+          cache: 'no-cache',
+        }
+      )
+      const data = await response.json()
+      const kol = await getKolDb()
+      const datadb = {
+        kol: kol.data
+      }
+      return z.array(kolsSchema).parse(datadb.kol)
+  }
   
   useEffect(() => {
     getKol().then((data:any) => {
