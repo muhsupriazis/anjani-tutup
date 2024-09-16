@@ -11,8 +11,16 @@ import {
   NavigationMenuList,
 } from "@/components/ui/navigation-menu";
 import { buttonVariants } from "@/components/ui/button";
+import { Bell } from "lucide-react";
+import { getBrandNetYet } from "@/_action/brand";
 
 export function NavigationMenuAdmin() {
+  const [brand, setBrand] = React.useState<any>([]);
+  React.useEffect(() => {
+  getBrandNetYet()
+  .then((res) => setBrand(res.brand))
+  .catch((err) => console.error(err));
+  }, []);
   return (
     <NavigationMenu>
       <NavigationMenuList>
@@ -22,9 +30,18 @@ export function NavigationMenuAdmin() {
               Home
             </NavigationMenuLink>
           </Link>
+        </NavigationMenuItem>
+        <NavigationMenuItem>
           <Link href="/dashboard/brand" legacyBehavior passHref>
             <NavigationMenuLink className={buttonVariants({variant: 'link'})}>
               Brand
+            </NavigationMenuLink>
+          </Link>
+        </NavigationMenuItem>
+        <NavigationMenuItem>
+          <Link href="/dashboard/not-yet" legacyBehavior passHref>
+            <NavigationMenuLink className={buttonVariants({variant: 'link'})}>
+              <Bell size={16} /> {brand && `${brand.length}`}
             </NavigationMenuLink>
           </Link>
         </NavigationMenuItem>
