@@ -50,7 +50,7 @@ export default function BrandPrint ({ params }: { params: { username: string } }
       <div className="py-4">
       <Button onClick={handlePrint}>Cetak Surat Persetujuan</Button>
       </div>
-      <div className="cetak">
+      <div className="cetak bg-white">
         {/* header */}
         <div className="border-b-2 border-red-600 pb-2 flex justify-between">
           <div className="w-20 h-20">

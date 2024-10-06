@@ -61,7 +61,7 @@ export default function BrandAdmin () {
     <div className="p-10">
       <div className="max-w-2xl m-auto">
       <Button className="mb-10" onClick={handlerCetak}>Cetak Laporan</Button>
-      <div className="cetak">
+      <div className="cetak bg-white">
         {/* header */}
         <div className="border-b-2 border-red-600 pb-2 flex justify-between">
           <div className="w-20 h-20">
