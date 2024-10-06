@@ -39,6 +39,13 @@ export function NavigationMenuAdmin() {
           </Link>
         </NavigationMenuItem>
         <NavigationMenuItem>
+          <Link href="/dashboard/brand/report" legacyBehavior passHref>
+            <NavigationMenuLink className={buttonVariants({variant: 'link'})}>
+              Laporan
+            </NavigationMenuLink>
+          </Link>
+        </NavigationMenuItem>
+        <NavigationMenuItem>
           <Link href="/dashboard/not-yet" legacyBehavior passHref>
             <NavigationMenuLink className={buttonVariants({variant: 'link'})}>
               <Bell size={16} /> {brand && `${brand.length}`}

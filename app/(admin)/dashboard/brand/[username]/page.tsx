@@ -148,9 +148,30 @@ export default function Alternatif({ params }: { params: { username: string } })
       }
     })
 
+    function berikanRanking(arr:any) {
+      let ranking = 1; // Inisialisasi ranking
+  let totalPeringkat = 1; // Untuk menghitung posisi berikutnya setelah peringkat yang sama
+  arr[0].rank = ranking; // Berikan ranking pertama
+
+  for (let i = 1; i < arr.length; i++) {
+        if (arr[i].score === arr[i - 1].score) {
+          // Jika skornya sama dengan yang sebelumnya, tetap berikan peringkat yang sama
+          arr[i].rank = ranking;
+        } else {
+          // Jika skor berbeda, peringkat dilanjutkan dari totalPeringkat
+          ranking = totalPeringkat;
+          arr[i].rank = ranking;
+        }
+        totalPeringkat++; // Setiap iterasi kita selalu tambahkan ke totalPeringkat
+      }
+      return arr;
+    }
+
+
     const finaleScore = filteredKol ? calculateFinalScores(kolWithRelative || [], relativeWeight) : [];
-     console.table(finaleScore);
-    setKol(finaleScore);
+    const realFinal = berikanRanking(finaleScore);
+    console.table(realFinal);
+    setKol(realFinal);
     return;
   }
 
@@ -170,7 +191,7 @@ export default function Alternatif({ params }: { params: { username: string } })
       <TableCaption>Brand yang terdaftar.</TableCaption>
       <TableHeader>
         <TableRow>
-          <TableHead className="w-[100px]">Urut</TableHead>
+          <TableHead className="w-[100px]">No.</TableHead>
           <TableHead>Nama</TableHead>
           <TableHead>Kategori</TableHead>
           <TableHead>Pengikut</TableHead>
@@ -178,12 +199,13 @@ export default function Alternatif({ params }: { params: { username: string } })
           <TableHead>Domisili</TableHead>
           <TableHead>Usia</TableHead>
           <TableHead>Engagement</TableHead>
+          <TableHead>Peringkat</TableHead>
         </TableRow>
       </TableHeader>
       <TableBody>
         {kol.length > 0 ? kol.map((item : any, index : any) => (
           <TableRow key={index}>
-            <TableCell className="font-medium">#{index + 1}</TableCell>
+            <TableCell className="font-medium">{index + 1}</TableCell>
             <TableCell><Link className={buttonVariants({variant:'link'})} href={`https://www.instagram.com/${item.username}`}>{item.name}</Link></TableCell>
             <TableCell>{item.category}</TableCell>
             <TableCell><Badge>{item.followers_category}</Badge> {item.followers}</TableCell>
@@ -191,6 +213,7 @@ export default function Alternatif({ params }: { params: { username: string } })
             <TableCell>{item.address}</TableCell>
             <TableCell>{item.age}</TableCell>
             <TableCell>{item.engagement}%</TableCell>
+            <TableCell>#{item.rank}</TableCell>
           </TableRow>
         )) : <TableRow><TableCell className="text-center" colSpan={8}>Admin belum menambahkan kriteria kol</TableCell></TableRow>}
       </TableBody>

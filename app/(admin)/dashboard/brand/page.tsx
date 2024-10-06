@@ -4,6 +4,9 @@ import { useEffect, useState } from "react";
 import { TableBrand } from "./components/table/table-structure";
 import { getBrand } from "@/_action/brand";
 import { supabase } from "@/lib/db";
+import { Button } from "@/components/ui/button";
+import Link from "next/link";
+// import html2pdf from 'html2pdf.js';
 
 export default function BrandAdmin () {
   const [brand, setBrand] = useState<any>([]);
@@ -36,6 +39,7 @@ export default function BrandAdmin () {
     fetchData();
     setLoading(false);
   }, []);
+
 
   if(loading) {
     return <div className="flex justify-center items-center py-5">
