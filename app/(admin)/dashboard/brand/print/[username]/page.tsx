@@ -57,6 +57,7 @@ export default function BrandPrint ({ params }: { params: { username: string } }
             <img src="/logo.jpg" alt="" />
           </div>
           <div>
+          
           <p className="text-right text-red-700 font-bold">PT RAJA MASAKAN ENAK</p>
           <p className="text-right text-sm">Jalan Gading Kirana Timur A-11/15Desa/Kelurahan Kelapa Gading Barat</p>
           <p className="text-right text-sm">Kec. Kelapa Gading, Kota Adm. Jakarta Utara, Provinsi DKI Jakarta</p>
@@ -65,6 +66,10 @@ export default function BrandPrint ({ params }: { params: { username: string } }
         </div>
         <div className="py-5 space-y-2">
           {kol && <>
+          <div>
+            <p className="text-sm font-semibold text-center underline">SURAT PERNYATAAN PEMILIH KOL</p>
+            <p className="text-sm font-semibold text-center">NOl:AM/KOL/01/2024</p>
+          </div>
             <p className="text-sm">Yang bertanda tangan di bawah ini:</p>
             <p className="text-sm pl-10">Nama: Dila</p>
             <p className="text-sm pl-10">Jabatan: Admin Management Asheera</p>
